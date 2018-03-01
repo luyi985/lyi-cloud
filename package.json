@@ -1,0 +1,23 @@
+{
+  "name": "lyi-cloud",
+  "version": "1.0.0",
+  "description": "node for all cloud, learn while doing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luyi985/lyi-cloud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luyi985/lyi-cloud/issues"
+  },
+  "homepage": "https://github.com/luyi985/lyi-cloud#readme",
+  "devDependencies": {
+    "jest": "^22.4.2"
+  }
+}
