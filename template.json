@@ -1,5 +1,21 @@
 {
+    "Parameters": {
+        "KeyPairName": {
+            "Description": "The EC2 Key Pair to allow SSH access to the instance",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        }
+    },
     "Resources": {
+        "HelloBucket" : {
+            "Type" : "AWS::S3::Bucket",
+            "Properties" : {
+                "AccessControl" : "PublicRead",
+                "WebsiteConfiguration" : {
+                    "IndexDocument" : "index.html",
+                    "ErrorDocument" : "error.html"            
+                }            
+            }
+        },
         "Ec2Instance": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
@@ -8,14 +24,17 @@
                         "Ref": "InstanceSecurityGroup"
                     }
                 ],
-                "KeyName": "lyi-keypair",
-                "ImageId": ""
+                "KeyName": {
+                    "Ref": "KeyPairName"
+                },
+                "ImageId": "ami-963cecf4",
+                "InstanceType": "t2.micro"
             }
         },
         "InstanceSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "Enable SSH access via port 22",
+                "GroupDescription": "**Enable SSH access via port 22**",
                 "SecurityGroupIngress": [
                     {
                         "IpProtocol": "tcp",
