@@ -1,0 +1,15 @@
+{
+    "Parameters": {
+        "kn": {
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        }
+    },
+    "Resources": {
+        "RestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+              "Name": "Api"
+            }
+        }
+    }
+}
