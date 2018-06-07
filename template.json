@@ -1,0 +1,17 @@
+{
+    "AWSTemplateFormateVersion": "2018-06-07",
+    "Description": "",
+    "Mapping": {},
+    "Parameters": {},
+    "Resources": {
+        "LambdaRole": {
+            "Type": "",
+            "Properties": {
+                
+            }
+        }
+    },
+    "Outputs": {
+
+    }
+}
