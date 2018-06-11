@@ -5,7 +5,7 @@
     "Parameters": {},
     "Resources": {
         "LambdaRole": {
-            "Type": "",
+            "Type": "aaaa",
             "Properties": {
                 
             }
