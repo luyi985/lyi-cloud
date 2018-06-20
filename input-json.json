@@ -1,0 +1,10 @@
+{
+    "InputDataConfig": {
+        "S3Uri": "s3://lyi-us-bucket/input",
+        "InputFormat": "ONE_DOC_PER_FILE"
+    },
+    "OutputDataConfig": {
+        "S3Uri": "s3://lyi-us-bucket/output"
+    },
+    "DataAccessRoleArn": "arn:aws:iam::331159120815:role/service-role/AmazonComprehendServiceRole-lyi-role-comprehend"
+}
