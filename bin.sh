@@ -1,6 +1,7 @@
-BUCKET_NAME="lyi-bucket"
-FILES_PREFIX="/files"
+BUCKET_NAME="lyi-us-bucket"
+FILES_PREFIX="/input"
 CF_PREFIX="/cf"
+REGION="us-west-2"
 S3_URL="http://${BUCKET_NAME}.s3.amazonaws.com"
 echo "http://${BUCKET_NAME}.s3.amazonaws.com/"
 
@@ -10,7 +11,8 @@ create_s3() {
     aws s3api create-bucket \
     --acl private \
     --bucket ${BUCKET_NAME} \
-    --create-bucket-configuration LocationConstraint=ap-southeast-2 && \
+    --create-bucket-configuration LocationConstraint=${REGION} \
+    --profile lyi-us && \
     mkdir ./files
 }
 
@@ -26,7 +28,8 @@ sync_folder() {
     echo "${S3_URL}${FILES_PREFIX}" && \
     aws s3 sync ./cf s3://${BUCKET_NAME}${CF_PREFIX} \
     --delete \
-    --acl public-read && \
+    --acl public-read \
+    --profile lyi-us && \
     echo "${S3_URL}${CF_PREFIX}"
 }
 
@@ -36,7 +39,8 @@ prepare_lambda() {
     zip -r ./files/lyi-lambda-func.zip ./lyi-lambda-func/ && \
     aws s3 sync ./files s3://${BUCKET_NAME}${FILES_PREFIX} \
     --delete \
-    --acl public-read && \
+    --acl public-read 
+    --profile lyi-us && \
     echo "${S3_URL}${FILES_PREFIX}"
 }
 
@@ -64,4 +68,13 @@ delete_lambda() {
     echo "Delete lambda..."
     aws lambda delete-function \
     --function-name ${LAMDA_NAME}
+}
+
+create_comprehend() {
+    sync_folder && aws comprehend start-topics-detection-job \
+                --number-of-topics 10 \
+                --job-name "lyi-comprehend" \
+                --region ${REGION} \
+                --cli-input-json file://$(pwd)/input-json.json \
+                --profile lyi-us
 }
