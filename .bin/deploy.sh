@@ -1,6 +1,12 @@
 #! /bin/bash
+BUCKET="lyi-bucket"
+STACK="lyi-stack"
+
+aws s3 sync ./cf s3://${BUCKET}/cf \
+    --delete \
+    --acl public-read && \
 aws cloudformation deploy\
- --template-file ./template.json\
- --stack-name stack-lyi\
- --s3-bucket stack-lyi\
- --parameter-overrides kn=lyi-keypair
+ --template-file ./cf/template.json\
+ --stack-name ${STACK} \
+ --s3-bucket ${BUCKET} \
+ --capabilities CAPABILITY_NAMED_IAM
